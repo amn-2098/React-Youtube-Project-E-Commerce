@@ -1,127 +1,10 @@
-// import React from 'react';
-
-// const Register = ({ openLogin, setIsModelOpen }) => {
-
-//   // const handleSubmit = (e) => {
-//   //   e.preventDefault();
-    
-//   //   // Simulate registration process
-//   //   const name = document.getElementById('name').value;
-//   //   const email = document.getElementById('email').value;
-//   //   const password = document.getElementById('password').value;
-
-//   //   // Normally here you would hash the password or send it to your server for processing.
-//   //   alert('Registration Successful!');
-    
-//   //   // Close the modal after registration
-//   //   setIsModelOpen(false);
-//   // };
-
-
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-  
-//     const name = document.getElementById('name').value;
-//     const email = document.getElementById('email').value;
-//     const password = document.getElementById('password').value;
-  
-//     // Validation
-//     if (password.length < 8) {
-//       alert('Password must be at least 8 characters long');
-//       return;
-//     }
-//     if (!/\S+@\S+\.\S+/.test(email)) {
-//       alert('Enter a valid email address');
-//       return;
-//     }
-  
-//     try {
-//       const response = await fetch('http://localhost:3000/api/auth/register', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ name, email, password }),
-//       });
-  
-//       const data = await response.json();
-//       console.log('API Response:', data);
-  
-//       if (response.ok) {
-//         alert('Registration Successful!');
-//         openLogin(); // Redirect to Login Page
-//       } else {
-//         alert(data.message || 'Something went wrong');
-//       }
-//     } catch (error) {
-//       console.error('Error:', error);
-//       alert('Something went wrong');
-//     }
-//   };
-//   ;
-  
-  
-
-
-//   return (
-//     <div>
-//       <h2 className='text-2xl font-bold mb-4'>Sign Up</h2>
-//       <form onSubmit={handleSubmit}>
-//         <div className='mb-4'>
-//           <label className='block text-gray-700'>Name</label>
-//           <input
-//             type="text"
-//             id="name"
-//             placeholder='Enter Name'
-//             name="name"
-//             className='w-full px-3 py-2 border'
-//           />
-//         </div>
-//         <div className='mb-4'>
-//           <label className='block text-gray-700'>Email</label>
-//           <input
-//             type="email"
-//             id="email"
-//             placeholder='Enter E-Mail'
-//             name="email"
-//             className='w-full px-3 py-2 border'
-//           />
-//         </div>
-//         <div>
-//           <label className='block text-gray-700'>Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             placeholder='Enter Password'
-//             name="password"
-//             className='w-full px-3 mb-4 py-2 border'
-//           />
-//         </div>
-//         <div className='mb-4'>
-//           <button type="submit" className='w-full bg-red-600 text-white py-2'>
-//             Sign Up
-//           </button>
-//         </div>
-//       </form>
-//       <div className='text-center'>
-//         <span className='text-gray-700'>Already have an account?</span>
-//         <button className='text-red-800 ml-2' onClick={openLogin}>
-//   Login
-// </button>
-
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Register;
-
-
-
 import React from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
 
 const Register = ({ openLogin, setIsModelOpen }) => {
-
+  
   // Handles form submission  
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents default form submission
@@ -133,11 +16,11 @@ const Register = ({ openLogin, setIsModelOpen }) => {
 
     // Validation checks
     if (password.length < 8) {
-      alert('Password must be at least 8 characters long');
+      toast.error('Password must be at least 8 characters long', { autoClose: 2000 });
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) { // Basic email validation
-      alert('Enter a valid email address');
+      toast.error('Enter a valid email address', { autoClose: 2000 });
       return;
     }
 
@@ -152,17 +35,18 @@ const Register = ({ openLogin, setIsModelOpen }) => {
       console.log('API Response:', response.data);
 
       if (response.status === 200) {
-        alert('Registration Successful!');
-        openLogin(); // Open login page after successful registration
+        toast.success('User registered successfully!', { autoClose: 2000 });
+        setTimeout(() => openLogin(), 2500); // Redirect after toast
       }
     } catch (error) {
       console.error('Error:', error);
-      alert(error.response?.data?.message || 'Something went wrong');
+      toast.error(error.response?.data?.message || 'Something went wrong');
     }
   };
 
   return (
     <div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
       {/* Sign-up heading */}
       <h2 className='text-2xl font-bold mb-4'>Sign Up</h2>
 
@@ -219,11 +103,3 @@ const Register = ({ openLogin, setIsModelOpen }) => {
 };
 
 export default Register;
-
-
-
-
-
-
-
-
