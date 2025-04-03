@@ -20,6 +20,7 @@ import KidCategory from '../assets/Images/kid.png'
     ]
 
 const CategorySection = () => {
+    console.log('Categories:', categories);
   return (
     <div className='container mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 '>
         {categories.map((category,index)=>(

@@ -3,6 +3,7 @@ import { FaAngleDown, FaAngleUp } from 'react-icons/fa'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom' // Import useNavigate
+import axios from 'axios'
 
 const Checkout = ({ setOrder }) => { // Ensure setOrder is passed as a prop
     const [billingToggle, setBillingToggle] = useState(true)
@@ -19,16 +20,51 @@ const Checkout = ({ setOrder }) => { // Ensure setOrder is passed as a prop
     const cart = useSelector((state) => state.cart)
     const navigate = useNavigate()
 
-    const handleOrder = () =>{
-        const newOrder ={
-            products: cart.products,
-            orderNumber:"122334",
-            shippingInformation: shippingInfo,
-            totalPrice: cart.totalPrice,    
+    // const handleOrder = () =>{
+    //     const newOrder ={
+    //         products: cart.products,
+    //         orderNumber:"122334",
+    //         shippingInformation: shippingInfo,
+    //         totalPrice: cart.totalPrice,    
+    //     }
+    //     console.log("Order Data:", newOrder); // Log the order data
+    //     setOrder(newOrder)
+    //     navigate('/order-confirmation')
+    // }
+
+
+const handleOrder = async () => {
+    const orderData = {
+        orderNumber: "122334",
+        shippingInformation: shippingInfo,
+        totalPrice: cart.totalPrice,
+        paymentMethod,
+        products: cart.products.map(product => product.id), // Send only IDs
+    };
+
+    console.log("Sending Order Data:", orderData);
+
+    try {
+        const response = await axios.post("http://localhost:3000/api/order", orderData, {
+            headers: { "Content-Type": "application/json" },
+        });
+
+        console.log("Order Created:", response.data);
+
+        // Ensure response exists before setting state
+        if (response.data?.order) {
+            setOrder({ ...response.data.order, products: cart.products });
+            navigate("/order-confirmation");
+        } else {
+            console.error("Invalid response format:", response.data);
         }
-        setOrder(newOrder)
-        navigate('/order-confirmation')
+
+    } catch (error) {
+        console.error("Error creating order:", error.response?.data || error.message);
     }
+};
+
+
 
   return (
     <div className='container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24'>

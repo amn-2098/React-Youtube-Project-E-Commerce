@@ -21,12 +21,13 @@ const Order = ({ order }) => {
         </div>
         <div className='mt-4'>
           <h4 className='text-md font-semibold mb-2'>Items Ordered</h4>
-          {order.products.map((product) => (
-            <div key={product.id} className='flex justify-between items-center mt-2'>
-              <p>{product.name} x {product.quantity}</p>
-              <p>${(product.price * product.quantity).toFixed(2)}</p>
-            </div>
-          ))}
+          {order.products.map((product, index) => (
+  <div key={index} className='flex justify-between items-center mt-2'>
+    <p>{product.name} x {product.quantity || 1}</p>
+    <p>${(product.price * (product.quantity || 1)).toFixed(2)}</p>
+  </div>
+))}
+
         </div>
         <div className='mt-4 justify-between mb-2'>
     <span >Total Price:</span>
@@ -34,7 +35,7 @@ const Order = ({ order }) => {
     </div>
     <div className='flex space-x-4'>
     <button className='bg-green-500 text-white py-2 px-4 hover:bg-green-600'
-    
+    onClick={() => navigate('/track-order/:orderNumber')}
     >
       Track Your Order!
       </button>

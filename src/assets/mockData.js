@@ -9,7 +9,7 @@ import Image8 from "./Images/robot.jpg"
 import Image9 from "./Images/wwatch.jpg"
 import Image10 from "./Images/shirt.jpg"
 
-export const Categories=[
+export const Categories = [
     "Electronics",
     "Fashion",
     "Home & Kitchen",
@@ -18,65 +18,75 @@ export const Categories=[
     "Automotive",
 ];
 
-export const mockData=[
+export const mockData = [
     {
-        id:1,
-        image:Image9,
-        name:"Product 1",
-        price:29.99,
+        id: 1,
+        image: Image9,
+        name: "Product 1",
+        price: 29.99,
+        categories: ["Electronics", "Fashion"]
     },
     {
-        id:2,
-        image:Image8,
-        name:"Product 2",
-        price:39.99,
+        id: 2,
+        image: Image8,
+        name: "Product 2",
+        price: 39.99,
+        categories: ["Electronics", "Sports"]
     },
     {
-        id:3,
-        image:Image7,
-        name:"Product 1",
-        price:19.99,
+        id: 3,
+        image: Image7,
+        name: "Product 3",
+        price: 19.99,
+        categories: ["Electronics", "Beauty"]
     },
     {
-        id:4,
-        image:Image6,
-        name:"Product 4",
-        price:49.99,
+        id: 4,
+        image: Image6,
+        name: "Product 4",
+        price: 49.99,
+        categories: ["Fashion", "Beauty"]
     },
     {
-        id:5,
-        image:Image10,
-        name:"Product 5",
-        price:49.99,
+        id: 5,
+        image: Image10,
+        name: "Product 5",
+        price: 49.99,
+        categories: ["Fashion", "Home & Kitchen"]
     },
     {
-        id:6,
-        image:Image4,
-        name:"Product 6",
-        price:49.99,
+        id: 6,
+        image: Image4,
+        name: "Product 6",
+        price: 49.99,
+        categories: ["Home & Kitchen", "Beauty"]
     },
     {
-        id:7,
-        image:Image5,
-        name:"Product 7",
-        price:49.99,
+        id: 7,
+        image: Image5,
+        name: "Product 7",
+        price: 49.99,
+        categories: ["Automotive", "Sports"]
     },
     {
-        id:8,
-        image:Image3,
-        name:"Product 8",
-        price:49.99,
+        id: 8,
+        image: Image3,
+        name: "Product 8",
+        price: 49.99,
+        categories: ["Sports"]
     },
     {
-        id:9,
-        image:Image2,
-        name:"Product 9",
-        price:49.99,
+        id: 9,
+        image: Image2,
+        name: "Product 9",
+        price: 49.99,
+        categories: ["Fashion"]
     },
     {
-        id:10,
-        image:Image1,
-        name:"Product 10",
-        price:49.99,
+        id: 10,
+        image: Image1,
+        name: "Product 10",
+        price: 49.99,
+        categories: ["Fashion", "Automotive"]
     },
-]
+];
