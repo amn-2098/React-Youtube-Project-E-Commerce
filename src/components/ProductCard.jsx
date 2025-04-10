@@ -78,13 +78,23 @@ const ProductCard = ({ product }) => {
     const dispatch = useDispatch()
 
     const handleAddToCart = (e, product) => {
-        e.stopPropagation()
-        e.preventDefault()
-
-        console.log("🆔 Product ID:", product.id);  // Logs only the product ID
-        dispatch(addToCart(product))
-        toast("Product Added Successfully!!")
-    }
+        e.stopPropagation();
+        e.preventDefault();
+      
+        const cartData = {
+            id: product._id || product.id,  // ✅ ensure there's always a unique id
+            name: product.name,
+            price: product.price,
+            quantity: 1,
+            totalPrice: product.price,
+            image: product.imageUrl || product.image, // ✅ safe image assignment
+          };
+          
+      
+        dispatch(addToCart(cartData));
+        toast("Product Added Successfully!!");
+      };
+      
 
     // const handleAddToCart = (e, product) => {
     //     e.stopPropagation();
@@ -105,9 +115,10 @@ const ProductCard = ({ product }) => {
     
 
     return (
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${product._id || product.id}`}>
+
         <div className='bg-white border p-4 rounded-md shadow-md relative transform transition-transform duration-300 hover:scale-105'>
-            <img src={product.image} alt="" className='w-full h-48 object-contain mb-4' />
+            <img src={product.imageUrl} alt={product.name} className='w-full h-48 object-contain mb-4' />
             <h3 className=' text-lg font-semibold'>{product.name}</h3>
             <p className='text-gray-500'>${product.price}</p>
             <div className='flex items-center mt-2'>

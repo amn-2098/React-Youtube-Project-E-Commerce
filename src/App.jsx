@@ -12,6 +12,8 @@ import { useState } from "react";
 import FilterData from "./pages/FilterData";
 import ProductDetail from "./pages/ProductDetail";
 import TrackOrder from './pages/TrackOrder';  // Import the TrackOrder component
+import UpdatedValuePage from "./components/UpdateValues";
+// import ShowProduct from "./pages/ShowProduct";
 
 
 function App() {
@@ -31,6 +33,10 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} /> {/* Add About page route */}
         <Route path="/track-order/:orderNumber" element={<TrackOrder />} /> {/* Add route for TrackOrder */}
+        {/* <Route path="/show-product" element={<ShowProduct />} /> */}
+        
+
+        <Route path="/updated-value" element={<UpdatedValuePage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

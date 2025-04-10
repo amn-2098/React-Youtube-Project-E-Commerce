@@ -28,45 +28,49 @@ const Checkout = ({ setOrder }) => {
             toast.error("No products found in the cart.");
             return;
         }
-
+    
         if (!shippingInfo || !paymentMethod) {
             toast.error("Please complete shipping and payment details.");
             return;
         }
-
+    
+        // Generate random order number
+        const orderNumber = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+    
         const orderData = {
-            orderNumber: "122334",
+            orderNumber,
             shippingInformation: shippingInfo,
             totalPrice: cart.totalPrice,
             paymentMethod,
             products: cart.products.map(product => product.id),
         };
-
+    
         dispatch(clearCart()); // Clears the cart after order placement
         console.log("Sending Order Data:", orderData);
-
+    
         try {
             const response = await axios.post("http://localhost:3000/api/order", orderData, {
                 headers: { "Content-Type": "application/json" },
             });
-
+    
             console.log("Order Created:", response.data);
-
+    
             if (response.data?.order) {
                 setOrder({ ...response.data.order, products: cart.products });
                 toast.success('Order Placed Successfully!', { autoClose: 2000 });
-
+    
                 setTimeout(() => navigate("/order-confirmation"), 2500);
             } else {
                 console.error("Invalid response format:", response.data);
                 toast.error('Something went wrong. Please try again.');
             }
-
+    
         } catch (error) {
             console.error("Error creating order:", error.response?.data || error.message);
             toast.error(error.response?.data?.message || 'Failed to place order.');
         }
     };
+    
 
     return (
         <div className='container mx-auto py-8 px-4 min-h-96 md:px-16 lg:px-24'>
@@ -125,24 +129,50 @@ const Checkout = ({ setOrder }) => {
                     </div>
 
                     {/* Payment Section */}
-                    <div className='border p-2 mb-6'>
-                        <div className='flex justify-between items-center' onClick={() => setPaymentToggle(!paymentToggle)}>
-                            <h3 className='text-lg font-semibold mb-2'>Payment Method</h3>
-                            {paymentToggle ? <FaAngleDown /> : <FaAngleUp />}
-                        </div>
-                        {paymentToggle && (
-                            <div className="space-y-4">
-                                <div className='flex items-center mb-2'>
-                                    <input type="radio" name="payment" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} />
-                                    <label className='block text-gray-700 ml-2'>Cash On Delivery</label>
-                                </div>
-                                <div className='flex items-center mb-2'>
-                                    <input type="radio" name="payment" checked={paymentMethod === "dc"} onChange={() => setPaymentMethod("dc")} />
-                                    <label className='block text-gray-700 ml-2'>Debit Card</label>
-                                </div>
-                            </div>
-                        )}
+                    {/* Payment Section */}
+<div className='border p-2 mb-6'>
+    <div className='flex justify-between items-center' onClick={() => setPaymentToggle(!paymentToggle)}>
+        <h3 className='text-lg font-semibold mb-2'>Payment Method</h3>
+        {paymentToggle ? <FaAngleDown /> : <FaAngleUp />}
+    </div>
+    {paymentToggle && (
+        <div className="space-y-4">
+            <div className='flex items-center mb-2'>
+                <input type="radio" name="payment" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} />
+                <label className='block text-gray-700 ml-2'>Cash On Delivery</label>
+            </div>
+            <div className='flex items-center mb-2'>
+                <input type="radio" name="payment" checked={paymentMethod === "dc"} onChange={() => setPaymentMethod("dc")} />
+                <label className='block text-gray-700 ml-2'>Debit Card</label>
+            </div>
+
+            {/* Debit Card Form */}
+            {paymentMethod === "dc" && (
+                <div className="mt-4 space-y-2 border p-4 rounded-md">
+                    <div>
+                        <label className='block text-gray-700'>Card Number</label>
+                        <input type="text" placeholder='1234 5678 9012 3456' className='w-full px-3 py-2 border' />
                     </div>
+                    <div className='flex space-x-2'>
+                        <div>
+                            <label className='block text-gray-700'>Expiry Date</label>
+                            <input type="text" placeholder='MM/YY' className='px-3 py-2 border w-full' />
+                        </div>
+                        <div>
+                            <label className='block text-gray-700'>CVV</label>
+                            <input type="text" placeholder='123' className='px-3 py-2 border w-full' />
+                        </div>
+                    </div>
+                    <div>
+                        <label className='block text-gray-700'>Cardholder Name</label>
+                        <input type="text" placeholder='Enter Name' className='w-full px-3 py-2 border' />
+                    </div>
+                </div>
+            )}
+        </div>
+    )}
+</div>
+
                 </div>
 
                 {/* Order Summary Section */}

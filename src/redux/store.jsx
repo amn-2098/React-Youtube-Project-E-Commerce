@@ -7,6 +7,7 @@ const store= configureStore({
     reducer:{
         cart : cartSlice,
         product : productSlice,
+        // product: productReducer,  /
        
     }
 })

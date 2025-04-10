@@ -21,70 +21,70 @@ export const Categories = [
 export const mockData = [
     {
         id: 1,
-        image: Image9,
+        imageUrl: Image9,
         name: "Product 1",
         price: 29.99,
         categories: ["Electronics", "Fashion"]
     },
     {
         id: 2,
-        image: Image8,
+        imageUrl: Image8,
         name: "Product 2",
         price: 39.99,
         categories: ["Electronics", "Sports"]
     },
     {
         id: 3,
-        image: Image7,
+        imageUrl: Image7,
         name: "Product 3",
         price: 19.99,
         categories: ["Electronics", "Beauty"]
     },
     {
         id: 4,
-        image: Image6,
+        imageUrl: Image6,
         name: "Product 4",
         price: 49.99,
         categories: ["Fashion", "Beauty"]
     },
     {
         id: 5,
-        image: Image10,
+        imageUrl: Image10,
         name: "Product 5",
         price: 49.99,
         categories: ["Fashion", "Home & Kitchen"]
     },
     {
         id: 6,
-        image: Image4,
+        imageUrl: Image4,
         name: "Product 6",
         price: 49.99,
         categories: ["Home & Kitchen", "Beauty"]
     },
     {
         id: 7,
-        image: Image5,
+        imageUrl: Image5,
         name: "Product 7",
         price: 49.99,
         categories: ["Automotive", "Sports"]
     },
     {
         id: 8,
-        image: Image3,
+        imageUrl: Image3,
         name: "Product 8",
         price: 49.99,
         categories: ["Sports"]
     },
     {
         id: 9,
-        image: Image2,
+        imageUrl: Image2,
         name: "Product 9",
         price: 49.99,
         categories: ["Fashion"]
     },
     {
         id: 10,
-        image: Image1,
+        imageUrl: Image1,
         name: "Product 10",
         price: 49.99,
         categories: ["Fashion", "Automotive"]
