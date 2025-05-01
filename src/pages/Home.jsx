@@ -64,7 +64,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <Shop />
+            {/* <Shop /> */}
         </div>
     );
 };
